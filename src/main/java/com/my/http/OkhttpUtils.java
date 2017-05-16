@@ -28,7 +28,8 @@ public class OkhttpUtils {
         System.out.println("响应:" + url );
         if(response.isSuccessful()){
             String s = response.body().string(); //注意是 string() 方法不是 toString()
-            Map<String, Object> map = JSON.parseObject(s, Map.class);
+            //Map<String, Object> map = JSON.parseObject(s, Map.class);
+            Map<String, Object> map = JSON.parseObject(s, new TypeReference<Map<String, Object>>() { });
 
             map.forEach((k,v) -> System.out.println(k + "," + v));
         }
@@ -58,7 +59,7 @@ public class OkhttpUtils {
 
     public static void main(String[] args) throws IOException {
         OkhttpUtils okhttpUtils = new OkhttpUtils();
-//        okhttpUtils.getRequestGetTest();
-        okhttpUtils.getRequestPostTest();
+        okhttpUtils.getRequestGetTest();
+//        okhttpUtils.getRequestPostTest();
     }
 }
