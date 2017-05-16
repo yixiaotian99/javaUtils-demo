@@ -55,4 +55,10 @@ public class TestFastJson {
     public void testMoreNameSerial(){
         fastjsonUtils.moreNameSerial();
     }
+
+
+    @Test
+    public void testJSON2Map(){
+        fastjsonUtils.json2Map();
+    }
 }

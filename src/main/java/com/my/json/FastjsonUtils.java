@@ -2,6 +2,7 @@ package com.my.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.my.model.*;
@@ -9,6 +10,7 @@ import com.my.model.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jinwei.sun on 2017/4/27.
@@ -104,6 +106,17 @@ public class FastjsonUtils {
         System.out.println(JSON.parseObject(s1, Model.class));
         System.out.println(JSON.parseObject(s2, Model.class));
         System.out.println(JSON.parseObject(s3, Model.class));
+    }
+
+
+    /**
+     * json字符串转 map
+     */
+    public void json2Map(){
+        String s1 = "{\"id\":5001,\"phone\":\"123\"}";
+        Map<String, Object> map = JSON.parseObject(s1, new TypeReference<Map<String, Object>>() {});
+
+        System.out.println(map);
     }
 
 }
