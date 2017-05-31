@@ -52,7 +52,7 @@ private static HashMap<String, String> property;
         String str = "";
         if(property != null) {
             if(property.containsKey(key)){
-            	str = property.get(key);
+            	str = property.get(key).trim();
             }
         }
         return str;
