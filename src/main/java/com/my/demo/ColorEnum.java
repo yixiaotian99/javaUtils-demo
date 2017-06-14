@@ -1,4 +1,4 @@
-package com.my.enums;
+package com.my.demo;
 
 /**
  * Created by jinwei.sun on 2017/5/31.

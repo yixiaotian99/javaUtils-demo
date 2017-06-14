@@ -1,6 +1,6 @@
 package com.my;
 
-import com.my.json.FastjsonUtils;
+import com.my.demo.FastjsonUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 

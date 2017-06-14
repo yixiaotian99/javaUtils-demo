@@ -1,6 +1,6 @@
 package com.my;
 
-import com.my.enums.ColorEnum;
+import com.my.demo.ColorEnum;
 import org.junit.Test;
 
 /**

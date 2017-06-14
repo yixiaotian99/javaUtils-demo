@@ -1,6 +1,6 @@
 package com.my;
 
-import com.my.date.DateUtils;
+import com.my.demo.DateUtils;
 import org.junit.Test;
 
 /**
