@@ -1,0 +1,32 @@
+{
+  "name": "Xiao",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "I Love Xiao ~~！",
+  "browser_action": {
+    "default_icon": "1.png",
+    "default_popup": "Penguins.jpg"
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*",
+        "http://www.csdn.net/*",
+        "http://101.xx.xx.xx/web/portal/login.html"
+      ],
+      "js": [
+        "jquery.min.js",
+        "fillUser.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  }
+}
+
