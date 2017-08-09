@@ -48,8 +48,13 @@
             <artifactId>javase</artifactId>
             <version>3.3.0</version>
         </dependency>
-
         <!-- 生成二维码使用 -->
+
+        <dependency>
+            <groupId>org.iherus</groupId>
+            <artifactId>qrcgen</artifactId>
+            <version>1.2.1</version>
+        </dependency>
 
     </dependencies>
     <build>
