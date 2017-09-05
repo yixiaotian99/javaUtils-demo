@@ -1,4 +1,4 @@
-package com.my.demo;
+package com.my.basic;
 
 import java.io.Serializable;
 
@@ -91,6 +91,38 @@ class SeriTest implements Serializable{
     }
 }
 
+/**
+ * 装箱与拆箱
+ */
+class BoxUnBox{
+    public static void main(String[] args) {
+        Integer x = 5;  //将数字5进行装箱
+        x = x + 5;      //拆箱成int进行运算
+        System.out.println(x);  //10
+    }
+}
+
+
+/**
+ * 测试生成字符串
+ */
+class StringTest{
+    public static void main(String[] args) {
+        String greeting = "Hello world!";  //编译器创建 String 对象，String类不可变，一旦创建了就不能改变
+        String temp = String.format("Welcome, %s come here", "zhangsan");
+        System.out.println(greeting);
+        System.out.println(temp);
+    }
+}
+
+class StringBufferTest{
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("I am a teacher");          //线程安全可同步访问
+        StringBuilder sb2 = new StringBuilder("I am a teacher too");  //线程不安全，速度快
+        System.out.println(sb.toString());
+        System.out.println(sb2.toString());
+    }
+}
 
 
 
