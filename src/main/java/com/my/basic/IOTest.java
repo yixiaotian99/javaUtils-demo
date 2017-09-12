@@ -1,6 +1,9 @@
 package com.my.basic;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
+import java.net.URL;
 
 /**
  * 测试使用 IO 流相关
@@ -26,8 +29,12 @@ public class IOTest {
 //        TestInputStreamReaderDemo testBufferInputStreamDemo = new TestInputStreamReaderDemo();
 //        testBufferInputStreamDemo.test();
 
-            TestByteArrayInputStream byteArrayInputStream = new TestByteArrayInputStream();
-            byteArrayInputStream.test();
+//        TestByteArrayInputStream byteArrayInputStream = new TestByteArrayInputStream();
+//        byteArrayInputStream.test();
+
+        TestCommonIo testCommonIo = new TestCommonIo();
+//        testCommonIo.copyFile();
+        testCommonIo.downPicFromUri();
     }
 
 }
@@ -233,3 +240,24 @@ class TestByteArrayInputStream{
 }
 
 
+/**
+ * 测试使用 common-io 包
+ */
+class TestCommonIo{
+    public void copyFile(){
+        try {
+            FileUtils.copyFile(new File("F:\\新建文件夹\\cc.wmv"), new File("F:\\新建文件夹\\mm.avi"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downPicFromUri(){
+        String url = "http://imgsrc.baidu.com/baike/pic/item/7aec54e736d12f2ee289bffe4cc2d5628435689b.jpg" ;
+        try {
+            FileUtils.copyURLToFile(new URL(url), new File("F:\\新建文件夹\\mm.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
