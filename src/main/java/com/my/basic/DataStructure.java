@@ -147,3 +147,31 @@ class HashTableAndMap{
         tableAndMap.test();
     }
 }
+
+
+/**
+ * 属性
+ */
+class PropertiesDemo{
+    public void test(){
+        Properties properties = new Properties();
+        properties.put("one", "one properties");
+        properties.put("two", "two properties");
+        properties.put("three", "three properties");
+
+        Set<Object> set = properties.keySet();
+        Iterator<Object> iterator = set.iterator();
+        while (iterator.hasNext()){
+            Object next = iterator.next();
+            System.out.println(next + ":" + properties.get(next));
+        }
+    }
+
+    public static void main(String[] args) {
+        PropertiesDemo demo = new PropertiesDemo();
+        demo.test();
+    }
+}
+
+
+
