@@ -130,16 +130,232 @@ class CallableReturnValue implements Callable{
 }
 
 
+/**
+ * 当 synchronized 修饰代码块
+ */
+class ThreadSync implements Runnable{
+    private static int count ;
+
+    public ThreadSync() {
+        count = 0;
+    }
+
+    @Override
+    public void run() {
+        synchronized (this){  //同步代码块，要求是同一个对象
+            for(int i=0; i<2; i++){
+                System.out.println("当前线程: " + Thread.currentThread().getName() + ", id= " + Thread.currentThread().getId());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        /**
+         * 修饰为块代码时，当为同一个对象时同步锁生效
+         当前线程: Thread-0, id= 11
+         当前线程: Thread-0, id= 11
+         当前线程: Thread-1, id= 12
+         当前线程: Thread-1, id= 12
+         */
+//        ThreadSync sync = new ThreadSync();
+//        Thread thread01 = new Thread(sync);
+//        Thread thread02 = new Thread(sync);
+//        thread01.start();
+//        thread02.start();
+
+        /**
+         * 修饰为块代码时，当为多个对象时同步锁不生效
+         当前线程: Thread-0, id= 11
+         当前线程: Thread-1, id= 12
+         当前线程: Thread-0, id= 11
+         当前线程: Thread-1, id= 12
+         */
+        Thread thread03 = new Thread(new ThreadSync());
+        Thread thread04 = new Thread(new ThreadSync());
+        thread03.start();
+        thread04.start();
+    }
+}
 
 
+/**
+ * 多个线程访问  一个访问synchronized 另一个访问非synchronized
+ */
+class ThreadSyncAndNoSync implements Runnable{
+    private static int count =0 ;
+
+    @Override
+    public void run() {
+        String name = Thread.currentThread().getName();
+        if("A".equals(name)){
+            countAdd();
+        }else if("B".equals(name)){
+            printCount();
+        }
+    }
+
+    //定义静态方法
+    public void countAdd(){
+        synchronized (this){   //同步代码块
+            for(int i=0; i<3; i++){
+                System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
+    //定义非静态方法
+    public void printCount(){
+        for(int i=0; i<3; i++){
+            System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + count);
+        }
+    }
+
+    public static void main(String[] args) {
+        /**
+         当前线程: A,count=0
+         当前线程: B,count=1
+         当前线程: B,count=1
+         当前线程: B,count=1
+         当前线程: A,count=1
+         当前线程: A,count=2
+         */
+        ThreadSyncAndNoSync sync = new ThreadSyncAndNoSync();
+        Thread thread01 = new Thread(sync, "A");
+        Thread thread02 = new Thread(sync, "B");
+        thread01.start();
+        thread02.start();
+    }
+}
 
 
+/**
+ * 使用 synchronized 修饰普通方法
+ */
+class ThreadSyncFunction implements Runnable{
+    private static int count = 0;
+
+    @Override
+    public synchronized void run() { //修改普通方法，与修饰代码块 synchronized(this)等价
+        for(int i=0; i<2; i++){
+            System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        /**
+         当前线程: Thread-0,count=0
+         当前线程: Thread-0,count=1
+         当前线程: Thread-1,count=2
+         当前线程: Thread-1,count=3
+         */
+        ThreadSyncFunction syncFunction = new ThreadSyncFunction();
+        Thread thread01 = new Thread(syncFunction);
+        Thread thread02 = new Thread(syncFunction);
+        thread01.start();
+        thread02.start();
+    }
+}
 
 
+/**
+ * 修饰静态方法
+ */
+class ThreadStaticFunction implements Runnable{
+    private static int count = 0;
+
+    //修饰静态方法
+    public synchronized static void add() {
+        for(int i=0; i<4; i++){
+            System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public synchronized void run() {
+        add();
+    }
+
+    public static void main(String[] args) {
+        /** 以下两种方式均会打印如下 ：
+         当前线程: Thread-0,count=0
+         当前线程: Thread-0,count=1
+         当前线程: Thread-0,count=2
+         当前线程: Thread-0,count=3
+         当前线程: Thread-1,count=4
+         当前线程: Thread-1,count=5
+         当前线程: Thread-1,count=6
+         当前线程: Thread-1,count=7
+         */
+//        ThreadStaticFunction staticFunction = new ThreadStaticFunction();
+//        Thread thread01 = new Thread(staticFunction);
+//        Thread thread02 = new Thread(staticFunction);
+//        thread01.start();
+//        thread02.start();
+
+        Thread thread03 = new Thread(new ThreadStaticFunction());
+        Thread thread04 = new Thread(new ThreadStaticFunction());
+        thread03.start();
+        thread04.start();
+    }
+}
 
 
+/**
+ * 使用 synchronized 修饰类
+ */
+class ThreadClass implements Runnable{
+    private static int count = 0;
+
+    @Override
+    public void run() {
+        synchronized (ThreadClass.class){ //同步整个类
+            for(int i=0; i<3; i++){
+                System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        /**
+         当前线程: Thread-0,count=0
+         当前线程: Thread-0,count=1
+         当前线程: Thread-0,count=2
+         当前线程: Thread-1,count=3
+         当前线程: Thread-1,count=4
+         当前线程: Thread-1,count=5
+         */
+        Thread thread01 = new Thread(new ThreadClass());
+        Thread thread02 = new Thread(new ThreadClass());
+        thread01.start();
+        thread02.start();
+    }
+}
 
 
 
