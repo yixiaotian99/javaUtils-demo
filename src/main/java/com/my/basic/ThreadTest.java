@@ -2,6 +2,8 @@ package com.my.basic;
 
 import java.util.ArrayList;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 线程相关操作
@@ -357,6 +359,47 @@ class ThreadClass implements Runnable{
     }
 }
 
+
+/**
+ * 加锁
+ */
+class ThreadAddLock{
+    Lock lock = new ReentrantLock();  //锁对象
+
+    int i = 1;
+
+    public void testAddLock(){
+        lock.lock();
+        try {
+            i ++;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+
+
+
+
+    public static void main(String[] args) {
+        ThreadAddLock lockDemo = new ThreadAddLock();
+        //lockDemo.testAddLock();
+
+//        for(int i=0; i<10; i++){
+//            Runnable runnable = () -> lockDemo.testAddLock();
+//
+//            Thread thread = new Thread(runnable);
+//            System.out.println("线程名称: " + thread.getName());
+//            thread.start();
+//        }
+
+
+        for(int i=0; i<10000; i++){
+            System.out.println(i);
+        }
+
+    }
+}
 
 
 
