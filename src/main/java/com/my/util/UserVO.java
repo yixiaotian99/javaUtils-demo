@@ -34,13 +34,16 @@ public class UserVO {
         userDO.setName("hollis");
         userDO.setAddress("hz");
         userDO.setAge(25);
-        userDO.setCompanyId(1);
+        userDO.setCompanyId(111);
         userDO.setBirthday(new Date());
         userDO.setGender("male");
         userDO.setEducation("1");
         userDO.setNickName("hollis");
         userDO.setPoliticalStatus("3");
-        UserVO userVO = (UserVO) mapper.map(userDO, UserVO.class);
+
+        //UserVO userVO = (UserVO) mapper.map(userDO, UserVO.class);
+        UserVO userVO = BeanMapper.map(userDO, UserVO.class);
+
         System.out.println(userVO);
     }
 }

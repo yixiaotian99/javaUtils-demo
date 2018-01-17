@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class Company {
 
+    private int id;
+
     private int code;
 
     //@JSONField(serialzeFeatures=SerializerFeature.BeanToArray, parseFeatures=Feature.SupportArrayToBean)  不起作用
@@ -42,4 +44,19 @@ public class Company {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", code=" + code +
+                '}';
+    }
 }
