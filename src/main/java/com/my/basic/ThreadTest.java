@@ -403,4 +403,10 @@ class ThreadAddLock{
 
 
 
+class TestThreadPool{
+    public static void main(String[] args) {
+        Executors.newSingleThreadExecutor();
 
+        Executors.newFixedThreadPool(50);
+    }
+}

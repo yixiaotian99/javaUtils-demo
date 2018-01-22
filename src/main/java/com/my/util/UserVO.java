@@ -30,7 +30,7 @@ public class UserVO {
 
     public static void main(String[] args) {
         DozerBeanMapper mapper = new DozerBeanMapper();
-        UserDO userDO = new UserDO();
+       /* UserDO userDO = new UserDO();
         userDO.setName("hollis");
         userDO.setAddress("hz");
         userDO.setAge(25);
@@ -42,8 +42,8 @@ public class UserVO {
         userDO.setPoliticalStatus("3");
 
         //UserVO userVO = (UserVO) mapper.map(userDO, UserVO.class);
-        UserVO userVO = BeanMapper.map(userDO, UserVO.class);
+        UserVO userVO = BeanMapper.map(userDO, UserVO.class);*/
 
-        System.out.println(userVO);
+        //System.out.println(userVO);
     }
 }
