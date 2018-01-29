@@ -15,7 +15,7 @@
         <!-- 队列最大长度，当线程数 >= maxPoolSize 时存储的个数 -->
         <property name="queueCapacity" value="11"></property>
 
-        <!-- 线程所允许的最大空间时间，超过即销毁 -->
+        <!-- 线程所允许的最大空间时间，超过即将 >corePoolSize 的结束进行销毁 -->
         <property name="keepAliveSeconds" value="30"></property>
     </bean>
 
