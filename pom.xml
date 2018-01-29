@@ -112,6 +112,12 @@
             <version>1.16.18</version>
         </dependency>
 
+        <!-- 工具包 -->
+        <dependency>
+            <groupId>com.xiaoleilu</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>3.3.0</version>
+        </dependency>
 
 
     </dependencies>
