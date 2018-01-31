@@ -26,7 +26,7 @@ public class ThreadSpringPool {
                 @Override
                 public void run() {
                     System.out.println(Thread.currentThread().getName() + "-------");
-                    ThreadUtil.sleep(1, TimeUnit.SECONDS);
+                    ThreadUtil.sleep(10, TimeUnit.SECONDS);
                 }
             });
         }
