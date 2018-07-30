@@ -1,5 +1,10 @@
 package com.my.basic;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
 /**
@@ -284,6 +289,103 @@ class GenericsClassDemo <T>{
     }
 }
 
+
+
+
+
+/**
+ * Created by sunjinwei on 2018/7/27.
+ *
+ * @author sunjinwei
+ * <p>
+ * 测试操作单向链表
+ * @see https://blog.csdn.net/jianyuerensheng/article/details/51200274
+ */
+@Slf4j
+class MyLink {
+
+    /**
+     * 定义内部节点类
+     * 每个节点包含两部分，数据区域+下个节点引用
+     */
+    @Data
+    class Node<T> {
+        private T data;
+        private Node<T> next;
+
+        public Node(T data) {
+            this.data = data;
+        }
+
+        public Node() {
+        }
+    }
+
+
+    /**
+     * 链表向外暴露的只有头节点，所有操作都是通过头节点操作的
+     */
+    @Getter
+    @Setter
+    public Node head;
+
+
+    /**
+     * 向尾部追加一个节点
+     */
+    public void addNode(Object data) {
+        Node node = new Node(data);
+
+        //首次添加将头节点指向第一个node节点
+        if (head == null) {
+            head = node;
+            return;
+        }
+
+        //非首次添加，需要从开头开始循环遍历, 找到next为空的node节点，将数据添加进去
+        Node lookNode = head;
+
+        //node.next!=null 说明还未找到最后一个节点，将指针重置为当前节点，继续循环
+        while (lookNode.next != null) {
+            lookNode = lookNode.next;
+        }
+
+        //node.next==null说明已经找到最后一个节点，直接追加node节点上去
+        lookNode.next = node;
+    }
+
+
+    /**
+     * 输出整个单向链表
+     */
+    public void printLink() {
+
+        //首先将指针定位到首节点
+        Node lookNode = head;
+        if (head == null) {
+            log.info("link is empty");
+            return;
+        }
+
+        //循环单向链表
+        while (lookNode.next != null) {
+            log.info("printLink get, link node info node:{}", lookNode);
+            lookNode = lookNode.next;
+        }
+        log.info("printLink get, link node info node:{}", lookNode);
+    }
+
+
+    public static void main(String[] args) {
+        MyLink myLink = new MyLink();
+        myLink.printLink();
+
+        myLink.addNode("张三");
+        myLink.addNode("李四");
+        myLink.addNode("王五");
+        myLink.printLink();
+    }
+}
 
 
 

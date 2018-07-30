@@ -1,6 +1,6 @@
 package com.my.basic;
 
-import com.xiaoleilu.hutool.thread.ThreadUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
  * Created by sunjinwei on 2018/1/29.
  *
  * @author sunjinwei
- *         <p>
- *         创建 spring thread pool
+ * <p>
+ * 创建 spring thread pool
  */
 public class ThreadSpringPool {
 
