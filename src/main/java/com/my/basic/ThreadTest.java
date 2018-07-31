@@ -1,7 +1,10 @@
 package com.my.basic;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -16,13 +19,13 @@ public class ThreadTest {
 /**
  * 使用继承的方法实现多线程
  */
-class ThreadExtends extends Thread{
+class ThreadExtends extends Thread {
     public ThreadExtends(String name) {
         super(name);
     }
 
     //重写 run() 方法，此方法由 jvm 自动调用
-    public void run(){
+    public void run() {
         System.out.println("线程名称:" + Thread.currentThread().getName() + ", id= " + Thread.currentThread().getId());
     }
 
@@ -32,7 +35,7 @@ class ThreadExtends extends Thread{
         ThreadExtends threadTwo = new ThreadExtends("Thread02");
         threadOne.start();
         threadTwo.start();
-        System.out.println("主线程退出："+ Thread.currentThread().getId());
+        System.out.println("主线程退出：" + Thread.currentThread().getId());
         /**
          * 主线程启动：1
          * 主线程退出：1
@@ -47,8 +50,8 @@ class ThreadExtends extends Thread{
  * 比较 start() 与 run() 方法不同
  * 线程的 ID 相同，说明直接调用 run() 方法并不会启动新线程
  */
-class ThreadStartAndRun extends Thread{
-    public void run(){
+class ThreadStartAndRun extends Thread {
+    public void run() {
         System.out.println("Thread run : " + Thread.currentThread().getId());
     }
 
@@ -70,7 +73,7 @@ class ThreadStartAndRun extends Thread{
 /**
  * 实现 runnable 接口实现多线程
  */
-class ThreadInterface implements Runnable{
+class ThreadInterface implements Runnable {
     private String name;
 
     public ThreadInterface(String name) {
@@ -98,8 +101,9 @@ class ThreadInterface implements Runnable{
 /**
  * 使用 Callable 、Future 获取有返回值的多线程 阻塞返回
  */
-class CallableReturnValue implements Callable{
+class CallableReturnValue implements Callable {
     private String task;
+
     public CallableReturnValue(String name) {
         this.task = name;
     }
@@ -107,7 +111,7 @@ class CallableReturnValue implements Callable{
     //实现 Callable 接口必须重写 call() 方法
     @Override
     public Object call() throws Exception {
-        System.out.println("Thread: " + this.task );
+        System.out.println("Thread: " + this.task);
         Thread.sleep(1000);  //睡眠1秒
         return this.task;
     }
@@ -117,14 +121,14 @@ class CallableReturnValue implements Callable{
         ArrayList<Future> futureList = new ArrayList<>();
         //使用线程池创建2个固定线程
         ExecutorService pool = Executors.newFixedThreadPool(2);
-        for(int i=0; i<3; i++){
-            Callable cc = new CallableReturnValue("i="  + i);
+        for (int i = 0; i < 3; i++) {
+            Callable cc = new CallableReturnValue("i=" + i);
             Future future = pool.submit(cc);
             futureList.add(future);   //阻塞获取线程返回值
         }
         pool.shutdown(); //关闭线程池
 
-        for(Future future : futureList){
+        for (Future future : futureList) {
             System.out.println("线程返回值: " + future.get());
         }
         System.out.println("线程全部关闭了");
@@ -135,8 +139,8 @@ class CallableReturnValue implements Callable{
 /**
  * 当 synchronized 修饰代码块
  */
-class ThreadSync implements Runnable{
-    private static int count ;
+class ThreadSync implements Runnable {
+    private static int count;
 
     public ThreadSync() {
         count = 0;
@@ -144,8 +148,8 @@ class ThreadSync implements Runnable{
 
     @Override
     public void run() {
-        synchronized (this){  //同步代码块，要求是同一个对象
-            for(int i=0; i<2; i++){
+        synchronized (this) {  //同步代码块，要求是同一个对象
+            for (int i = 0; i < 2; i++) {
                 System.out.println("当前线程: " + Thread.currentThread().getName() + ", id= " + Thread.currentThread().getId());
                 try {
                     Thread.sleep(1000);
@@ -188,23 +192,23 @@ class ThreadSync implements Runnable{
 /**
  * 多个线程访问  一个访问synchronized 另一个访问非synchronized
  */
-class ThreadSyncAndNoSync implements Runnable{
-    private static int count =0 ;
+class ThreadSyncAndNoSync implements Runnable {
+    private static int count = 0;
 
     @Override
     public void run() {
         String name = Thread.currentThread().getName();
-        if("A".equals(name)){
+        if ("A".equals(name)) {
             countAdd();
-        }else if("B".equals(name)){
+        } else if ("B".equals(name)) {
             printCount();
         }
     }
 
     //定义静态方法
-    public void countAdd(){
-        synchronized (this){   //同步代码块
-            for(int i=0; i<3; i++){
+    public void countAdd() {
+        synchronized (this) {   //同步代码块
+            for (int i = 0; i < 3; i++) {
                 System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
                 try {
                     Thread.sleep(1000);
@@ -217,8 +221,8 @@ class ThreadSyncAndNoSync implements Runnable{
 
 
     //定义非静态方法
-    public void printCount(){
-        for(int i=0; i<3; i++){
+    public void printCount() {
+        for (int i = 0; i < 3; i++) {
             System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + count);
         }
     }
@@ -244,12 +248,12 @@ class ThreadSyncAndNoSync implements Runnable{
 /**
  * 使用 synchronized 修饰普通方法
  */
-class ThreadSyncFunction implements Runnable{
+class ThreadSyncFunction implements Runnable {
     private static int count = 0;
 
     @Override
     public synchronized void run() { //修改普通方法，与修饰代码块 synchronized(this)等价
-        for(int i=0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
             try {
                 Thread.sleep(1000);
@@ -278,12 +282,12 @@ class ThreadSyncFunction implements Runnable{
 /**
  * 修饰静态方法
  */
-class ThreadStaticFunction implements Runnable{
+class ThreadStaticFunction implements Runnable {
     private static int count = 0;
 
     //修饰静态方法
     public synchronized static void add() {
-        for(int i=0; i<4; i++){
+        for (int i = 0; i < 4; i++) {
             System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
             try {
                 Thread.sleep(1000);
@@ -326,13 +330,13 @@ class ThreadStaticFunction implements Runnable{
 /**
  * 使用 synchronized 修饰类
  */
-class ThreadClass implements Runnable{
+class ThreadClass implements Runnable {
     private static int count = 0;
 
     @Override
     public void run() {
-        synchronized (ThreadClass.class){ //同步整个类
-            for(int i=0; i<3; i++){
+        synchronized (ThreadClass.class) { //同步整个类
+            for (int i = 0; i < 3; i++) {
                 System.out.println("当前线程: " + Thread.currentThread().getName() + ",count=" + (count++));
                 try {
                     Thread.sleep(1000);
@@ -363,22 +367,19 @@ class ThreadClass implements Runnable{
 /**
  * 加锁
  */
-class ThreadAddLock{
+class ThreadAddLock {
     Lock lock = new ReentrantLock();  //锁对象
 
     int i = 1;
 
-    public void testAddLock(){
+    public void testAddLock() {
         lock.lock();
         try {
-            i ++;
+            i++;
         } finally {
             lock.unlock();
         }
     }
-
-
-
 
 
     public static void main(String[] args) {
@@ -394,7 +395,7 @@ class ThreadAddLock{
 //        }
 
 
-        for(int i=0; i<10000; i++){
+        for (int i = 0; i < 10000; i++) {
             System.out.println(i);
         }
 
@@ -402,11 +403,118 @@ class ThreadAddLock{
 }
 
 
-
-class TestThreadPool{
+class TestThreadPool {
     public static void main(String[] args) {
         Executors.newSingleThreadExecutor();
 
         Executors.newFixedThreadPool(50);
     }
 }
+
+
+class ThreadTest3 implements Runnable {
+
+    /**
+     * 静态变量计数铁定有问题
+     */
+    //private static int count = 0;
+
+    /**
+     * 局部变量可以正常计算
+     */
+    //private int count = 0;
+
+    /**
+     * 静态变量 AtomicInteger 可以正常计数
+     */
+    private static AtomicInteger count = new AtomicInteger(0);
+
+    @Override
+    public void run() {
+        System.out.println("当前线程: " + Thread.currentThread().getName() + ", started..");
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //count++;
+            count.incrementAndGet();
+        }
+
+        System.out.println("当前线程: " + Thread.currentThread().getName() + ", 计数: " + count);
+    }
+
+
+    public static void main(String[] args) {
+
+        for (int i = 0; i < 1000; i++) {
+            new Thread(new ThreadTest3()).start();
+        }
+    }
+}
+
+
+/**
+ * 测试重入锁 ReentrantLock
+ */
+@Slf4j
+class ReentrantLockDemo extends Thread {
+    public static ReentrantLock lock = new ReentrantLock();
+    public static int count = 0;
+
+    public ReentrantLockDemo(String name) {
+        super.setName(name);
+    }
+
+    /**
+     * 打印数字，并且显示加锁、释放锁
+     */
+    @Override
+    public void run() {
+        for (int i = 0; i < 100000; i++) {
+            try {
+                lock.lock();
+                lock.lock();
+                count++;
+                log.info("### Thread:{}, print:{}", Thread.currentThread().getName(), count);
+            } finally {
+                lock.unlock();
+                lock.unlock();
+            }
+        }
+    }
+
+
+    public static void main(String[] args) throws InterruptedException {
+        //启动两个线程，轮流打印
+        ReentrantLockDemo t1 = new ReentrantLockDemo("01");
+        ReentrantLockDemo t2 = new ReentrantLockDemo("02");
+
+        //启动线程
+        t1.start();
+        t2.start();
+
+        //保证在主线程退出之前执行，默认调用后主线程就会退出
+        t1.join();
+        t2.join();
+    }
+}
+
+
+/**
+ * 测试 CAS 乐观锁
+ */
+class CasDemo {
+
+}
+
+
+
+
+
+
+
+
+
