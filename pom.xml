@@ -119,11 +119,10 @@
             <version>4.0.5</version>
         </dependency>
 
-        <!-- 简化get/set -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
         </dependency>
 
 
