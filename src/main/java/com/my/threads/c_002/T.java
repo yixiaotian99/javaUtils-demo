@@ -22,17 +22,17 @@ public class T {
     }
 
     public static void main(String[] args) {
-        T t1 = new T();
-        new Thread(t1::m, "t1").start();  //count:1
-        new Thread(t1::m, "t1").start();  //count:2
-        new Thread(t1::m, "t1").start();  //count:3
-
-//        //使用 synchronized(this) 锁定的是堆对象，多个 new 出来对象是不同堆对象，synchronized 不起作用
 //        T t1 = new T();
-//        T t2 = new T();
-//        T t3 = new T();
 //        new Thread(t1::m, "t1").start();  //count:1
-//        new Thread(t2::m, "t2").start();  //count:1
-//        new Thread(t3::m, "t3").start();  //count:1
+//        new Thread(t1::m, "t1").start();  //count:2
+//        new Thread(t1::m, "t1").start();  //count:3
+
+        //使用 synchronized(this) 锁定的是堆对象，多个 new 出来对象是不同堆对象，synchronized 不起作用
+        T t1 = new T();
+        T t2 = new T();
+        T t3 = new T();
+        new Thread(t1::m, "t1").start();  //count:1
+        new Thread(t2::m, "t2").start();  //count:1
+        new Thread(t3::m, "t3").start();  //count:1
     }
 }
