@@ -100,3 +100,25 @@ class Test {
         }
     }
 }
+
+
+
+class FinallyTest {
+    public int method() {
+        int x = 1;
+        try{
+            ++ x;
+            return x;
+        }catch(Exception e){
+
+        }finally{
+            return ++x;
+        }
+    }
+
+    public static void main(String[] args) {
+        FinallyTest t = new FinallyTest();
+        int y = t.method();
+        System.out.println(y);
+    }
+}
