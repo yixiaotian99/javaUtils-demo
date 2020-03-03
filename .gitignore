@@ -1,3 +1,4 @@
 /target
 /javaUtils-demo.iml
 /.idea
+*.log
