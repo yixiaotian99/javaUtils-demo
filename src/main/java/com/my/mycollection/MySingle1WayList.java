@@ -27,11 +27,11 @@ public class MySingle1WayList<E> {
     }
 
     /**
-     * 插入元素
+     * 在链表尾部插入元素
      */
-    public void insertLast(E eleme) {
+    public void insertLast(E e) {
         //1. 定义插入的元素Node
-        Node<E> nNode = new Node<>(eleme);
+        Node<E> nNode = new Node<>(e);
 
         //2. 找到最后一个元素插入数据域
         Node<E> temp = head;
@@ -51,13 +51,13 @@ public class MySingle1WayList<E> {
      * 插入第 index 位置元素
      *
      * @param index
-     * @param eleme
+     * @param e
      */
-    public void insert(int index, E eleme) {
+    public void insert(int index, E e) {
         if (checkRangeIndex(index)) return;
 
         //2. 从头开始遍历链表，找到第 index 位置元素
-        Node<E> nNode = new Node<>(eleme);
+        Node<E> nNode = new Node<>(e);
         Node temp = head;
 
         for (int i = 0; i < size; i++) {
