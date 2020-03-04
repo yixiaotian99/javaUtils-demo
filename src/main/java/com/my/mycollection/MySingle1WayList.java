@@ -54,11 +54,7 @@ public class MySingle1WayList<E> {
      * @param eleme
      */
     public void insert(int index, E eleme) {
-        //1. 先判断 index 是否合法
-        if (index < 0 || index > size) {
-            log.error("index illegality, index:{}", index);
-            return;
-        }
+        if (checkRangeIndex(index)) return;
 
         //2. 从头开始遍历链表，找到第 index 位置元素
         Node<E> nNode = new Node<>(eleme);
@@ -71,13 +67,59 @@ public class MySingle1WayList<E> {
 
                 //4. 将index位置元素指针指向新节点
                 temp.next = nNode;
-                break;
+
+                //5. 长度+1
+                size++;
+                return;
             }
             temp = temp.next;
         }
+    }
 
-        //5. 长度+1
-        size++;
+    private boolean checkRangeIndex(int index) {
+        //1. 先判断 index 是否合法，注意是 size-1
+        if (index < 0 || index > size - 1) {
+            log.error("index illegality, index:{}", index);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 删除 index 位置节点
+     *
+     * @param index
+     */
+    public void delete(int index) {
+        //1. 先判断索引是否合法
+        if (checkRangeIndex(index)) return;
+
+        //2. 从头开始遍历，找到索引值
+        Node temp = head.next;
+        int curPos = 0; //当前循环到的位置
+
+        while (temp != null) {
+
+            if (curPos + 1 == index) {
+                //获取待删除节点, 当时并没有想到
+                Node delNode = temp.next;
+
+                //3. 将索引前一节点的next指针指向索引后一节点
+                temp.setNext(delNode.next);
+
+                //4. 索引当前节点指针清空
+                delNode = null;
+
+                //5. 长度-1
+                size--;
+                break;
+            }
+
+            curPos++;
+            temp = temp.next;
+        }
+
     }
 
 
@@ -88,10 +130,18 @@ public class MySingle1WayList<E> {
         //因为头不存储数据，所有从 head.next 开始
         Node<E> temp = head.next;
 
-        for (int i = 0; i < size; i++) {
+        //注意，这是是用 temp!=null 而不是 temp.next
+        while (temp != null) {
             System.out.println("数据:" + temp.getData());
             temp = temp.next;
         }
+
+//        //先不用自己定义的size, 防止size不准确
+//        for (int i = 0; i < size; i++) {
+//            System.out.println("数据:" + temp.getData());
+//            temp = temp.next;
+//        }
+
     }
 
     public static void main(String[] args) {
@@ -99,10 +149,22 @@ public class MySingle1WayList<E> {
         m1.insertLast("张三");
         m1.insertLast("李四");
         m1.insertLast("王五");
-
         m1.display();
         System.out.println("===========");
+
         m1.insert(1, "小飞虾");
+        m1.display();
+
+        System.out.println("===========");
+        m1.delete(2);
+        m1.display();
+
+        System.out.println("===========");
+        m1.delete(2);
+        m1.display();
+
+        System.out.println("===========");
+        m1.delete(2);
         m1.display();
     }
 
