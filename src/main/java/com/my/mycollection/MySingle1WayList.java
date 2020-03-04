@@ -128,6 +128,7 @@ public class MySingle1WayList<E> {
      */
     public void display() {
         //因为头不存储数据，所有从 head.next 开始
+        System.out.println(head);
         Node<E> temp = head.next;
 
         //注意，这是是用 temp!=null 而不是 temp.next
