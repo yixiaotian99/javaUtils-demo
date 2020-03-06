@@ -60,25 +60,46 @@ public class MySingle1WayList<E> {
         Node<E> nNode = new Node<>(e);
         Node temp = head;
 
-        for (int i = 0; i < size; i++) {
-            if (index == i) {
+//不能使用for循环判断size，因为当第一次插入节点时，index=0会插入不进来节点，使用while循环替代
+//        for (int i = 0; i < size; i++) {
+//            if (index == i) {
+//                //3. 将新节点指针next指向index后节点
+//                nNode.next = temp.next;
+//
+//                //4. 将index位置元素指针指向新节点
+//                temp.next = nNode;
+//
+//                //5. 长度+1
+//                size++;
+//                return;
+//            }
+//            temp = temp.next;
+//        }
+
+
+        int curPos = 0;
+        while (temp.next != null) {
+            //找到上一个节点位置
+            if ((index - 1) == curPos) {
                 //3. 将新节点指针next指向index后节点
                 nNode.next = temp.next;
 
                 //4. 将index位置元素指针指向新节点
                 temp.next = nNode;
-
-                //5. 长度+1
-                size++;
-                return;
+                break;
             }
+            curPos++;
             temp = temp.next;
         }
+
+
+        //5. 长度+1
+        size++;
     }
 
     private boolean checkRangeIndex(int index) {
-        //1. 先判断 index 是否合法，注意是 size-1
-        if (index < 0 || index > size - 1) {
+        //1. 先判断 index 是否合法，注意是 size，索引index从0开始，如果index=size说明插入尾端
+        if (index < 0 || (index > size && size != 0)) {
             log.error("index illegality, index:{}", index);
             return true;
         }
@@ -147,26 +168,28 @@ public class MySingle1WayList<E> {
 
     public static void main(String[] args) {
         MySingle1WayList m1 = new MySingle1WayList();
-        m1.insertLast("张三");
-        m1.insertLast("李四");
-        m1.insertLast("王五");
+//        m1.insertLast("张三");
+//        m1.insertLast("李四");
+//        m1.insertLast("王五");
+//        m1.display();
+//        System.out.println("===========");
+//
+        m1.insert(0, "小飞虾");
+        m1.insert(0, "小飞虾2");
         m1.display();
-        System.out.println("===========");
+//
+//        System.out.println("===========");
+//        m1.delete(2);
+//        m1.display();
+//
+//        System.out.println("===========");
+//        m1.delete(2);
+//        m1.display();
+//
+//        System.out.println("===========");
+//        m1.delete(2);
+//        m1.display();
 
-        m1.insert(1, "小飞虾");
-        m1.display();
-
-        System.out.println("===========");
-        m1.delete(2);
-        m1.display();
-
-        System.out.println("===========");
-        m1.delete(2);
-        m1.display();
-
-        System.out.println("===========");
-        m1.delete(2);
-        m1.display();
     }
 
 }
