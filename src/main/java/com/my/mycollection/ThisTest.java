@@ -1,6 +1,5 @@
 package com.my.mycollection;
 
-import lombok.Data;
 
 /**
  * @Author sunjinwei
@@ -21,15 +20,14 @@ public class ThisTest<T> {
         myNode.second.setNext(myNode.three);
         myNode.three.setNext(myNode.tail);
 
-        myNode.head.test();
+        myNode.head.test(); //数据：张三，李四，王五
         System.out.println("===========");
-        myNode.second.test();
+        myNode.second.test(); //数据：王五
     }
 
 }
 
 
-@Data
 class MyNode<T> {
 
     T data;
@@ -41,6 +39,14 @@ class MyNode<T> {
     MyNode<String> second;
     MyNode<String> three;
 
+    public void test() {
+        MyNode node = this;
+        while (node.next != null) {
+            node = node.next;
+            System.out.println("数据:" + node.data);
+        }
+    }
+
 
     public MyNode() {
     }
@@ -50,12 +56,59 @@ class MyNode<T> {
     }
 
 
-    public void test() {
-        MyNode node = this;
-        while (node.next != null) {
-            node = node.next;
-            System.out.println("数据:" + node.data);
-        }
+    public T getData() {
+        return data;
     }
 
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public MyNode<T> getNext() {
+        return next;
+    }
+
+    public void setNext(MyNode<T> next) {
+        this.next = next;
+    }
+
+    public MyNode<String> getHead() {
+        return head;
+    }
+
+    public void setHead(MyNode<String> head) {
+        this.head = head;
+    }
+
+    public MyNode<String> getTail() {
+        return tail;
+    }
+
+    public void setTail(MyNode<String> tail) {
+        this.tail = tail;
+    }
+
+    public MyNode<String> getFirst() {
+        return first;
+    }
+
+    public void setFirst(MyNode<String> first) {
+        this.first = first;
+    }
+
+    public MyNode<String> getSecond() {
+        return second;
+    }
+
+    public void setSecond(MyNode<String> second) {
+        this.second = second;
+    }
+
+    public MyNode<String> getThree() {
+        return three;
+    }
+
+    public void setThree(MyNode<String> three) {
+        this.three = three;
+    }
 }

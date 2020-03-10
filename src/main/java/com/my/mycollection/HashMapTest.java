@@ -10,6 +10,23 @@ import java.util.Map;
  **/
 public class HashMapTest {
 
+    int index;
+
+
+    public void tt(){
+        int index = 0;
+        index++;
+        System.out.println("tt: "+index);
+    }
+
+    public void tt2(){
+        index = 5;
+        System.out.println("tt2: " +index);
+    }
+
+
+
+
     public static void main(String[] args) {
 //        Map<String, Object> map = new HashMap<>(6);
 //        map.put("k1", "v1");
@@ -96,15 +113,30 @@ public class HashMapTest {
 //            System.out.print(key + " -> ");
 //        }
 
+//
+//        HashMap<String, Object> map = new HashMap<>(6);
+//        map.put("zhangsan", "张三");
+//        map.put("lisi", "李四");
+//        map.put("wangwu", "王五");
+//        map.put("maliu", "马六");
+//
+//        for (Object key : map.keySet()) {
+//            System.out.println("key->" + map.get(key));
+//        }
 
-        HashMap<String, Object> map = new HashMap<>(6);
-        map.put("zhangsan", "张三");
-        map.put("lisi", "李四");
-        map.put("wangwu", "王五");
-        map.put("maliu", "马六");
 
-        for (Object key : map.keySet()) {
-            System.out.println("key->" + map.get(key));
+        HashMap<Integer, String> map = new HashMap(16);
+        map.put(7, "");
+        map.put(11, "");
+        map.put(43, "");
+        map.put(59, "");
+        map.put(19, "");
+        map.put(3, "");
+        map.put(35, "");
+
+        System.out.println("遍历结果：");
+        for (Integer key : map.keySet()) {
+            System.out.print(key + " -> ");
         }
 
 
