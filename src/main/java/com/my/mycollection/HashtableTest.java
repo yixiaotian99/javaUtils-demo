@@ -27,13 +27,13 @@ public class HashtableTest {
         Hashtable ht = new Hashtable();
         ht.put(24, "");
         ht.put(20, "");
-        ht.put(9, "");
         ht.put(31, "");
+//        ht.put(9, "");
 
-        System.out.println(ht);
+        System.out.println(ht); //输出 {31=, 20=, 24=}
 
         for (Object key : ht.keySet()) {
-            System.out.println(key + "->");
+            System.out.print(key + "->"); //输出 31->20->24->
         }
     }
 }
