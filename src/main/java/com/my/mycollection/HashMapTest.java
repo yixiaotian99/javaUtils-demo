@@ -125,21 +125,79 @@ public class HashMapTest {
 //        }
 
 
-        HashMap<Integer, String> map = new HashMap(16);
-        map.put(7, "");
-        map.put(11, "");
-        map.put(43, "");
-        map.put(59, "");
-        map.put(19, "");
-        map.put(3, "");
-        map.put(35, "");
+//        HashMap<Integer, String> map = new HashMap(16);
+//        map.put(7, "");
+//        map.put(11, "");
+//        map.put(43, "");
+//        map.put(59, "");
+//        map.put(19, "");
+//        map.put(3, "");
+//        map.put(35, "");
+//
+//        System.out.println("遍历结果：");
+//        for (Integer key : map.keySet()) {
+//            System.out.print(key + " -> ");
+//        }
 
-        System.out.println("遍历结果：");
-        for (Integer key : map.keySet()) {
-            System.out.print(key + " -> ");
-        }
+//
+//        int i = 0x7fffffff;
+//        System.out.println(Integer.MAX_VALUE);
+//        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE));
 
 
+        HashMap<Integer, String> map = new HashMap(7);
+
+        int n = 6;
+        int offet = 1;
+//        System.out.println(Integer.toBinaryString(n));
+//        System.out.println(n >>> offet);
+//        System.out.println(Integer.toBinaryString(n >>> offet));
+//        System.out.println((n | n >>> offet));
+        System.out.println(Integer.toBinaryString(n | n >>> offet));
+        n |= n >>> offet;
+
+        System.out.println("============");
+
+        offet = 2;
+//        System.out.println(Integer.toBinaryString(n));
+//        System.out.println(n >>> offet);
+//        System.out.println(Integer.toBinaryString(n >>> offet));
+//        System.out.println((n | n >>> offet));
+        System.out.println(Integer.toBinaryString(n | n >>> offet));
+        n |= n >>> offet;
+
+
+        System.out.println("============");
+
+        offet = 4;
+//        System.out.println(Integer.toBinaryString(n));
+//        System.out.println(n >>> offet);
+//        System.out.println(Integer.toBinaryString(n >>> offet));
+//        System.out.println((n | n >>> offet));
+        System.out.println(Integer.toBinaryString(n | n >>> offet));
+        n |= n >>> offet;
+
+        System.out.println("============");
+
+        offet = 8;
+//        System.out.println(Integer.toBinaryString(n));
+//        System.out.println(n >>> offet);
+//        System.out.println(Integer.toBinaryString(n >>> offet));
+//        System.out.println((n | n >>> offet));
+        System.out.println(Integer.toBinaryString(n | n >>> offet));
+        n |= n >>> offet;
+
+        System.out.println("============");
+
+        offet = 16;
+//        System.out.println(Integer.toBinaryString(n));
+//        System.out.println(n >>> offet);
+//        System.out.println(Integer.toBinaryString(n >>> offet));
+//        System.out.println((n | n >>> offet));
+        System.out.println(Integer.toBinaryString(n | n >>> offet));
+        n |= n >>> offet;
+
+        System.out.println(n);
     }
 
 }
