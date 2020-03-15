@@ -2,6 +2,8 @@ package com.my.mycollection;
 
 import lombok.Data;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * @Author sunjinwei
  * @Date 2020-03-11 20:58
@@ -54,14 +56,24 @@ public class ConcurrentHashMapTest {
 //        System.out.println(Integer.toBinaryString((int) Math.pow(2, 5)));
 
 
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println((long)Integer.MAX_VALUE);
-        long n = 2147483649L;
+//        System.out.println(Integer.MAX_VALUE);
+//        System.out.println((long)Integer.MAX_VALUE);
+//        long n = 2147483649L;
+//
+////        System.out.println(n);
+//        System.out.println(
+//                (n > (long)Integer.MAX_VALUE) ? Integer.MAX_VALUE :
+//                        (int)n);
 
-//        System.out.println(n);
-        System.out.println(
-                (n > (long)Integer.MAX_VALUE) ? Integer.MAX_VALUE :
-                        (int)n);
+
+        ConcurrentHashMap map = new ConcurrentHashMap();
+        map.put("zhangsan", "张三");
+        map.put("lisi", "李四");
+        map.put("wangwu", "王五");
+
+        for (Object key : map.keySet()) {
+            System.out.println(key + "-->");
+        }
 
     }
 
